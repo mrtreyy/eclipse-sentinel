@@ -1,155 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Eclipse Sentinel</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-body {
-  margin:0;
-  padding:0;
-  font-family: 'Segoe UI', sans-serif;
-  overflow-x:hidden;
-  background:#0f0f1a;
-  color:#fff;
-  position:relative;
-}
-/* Background particles */
-canvas#bgCanvas {
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
-}
-
-/* Title bounce */
-.purple-blue {
-  background: linear-gradient(90deg, #7f00ff, #00bfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display:inline-block;
-  animation: titleBounce 1s ease-out;
-}
-@keyframes titleBounce {
-  0% { transform: translateY(-20px); opacity:0; }
-  50% { transform: translateY(5px); opacity:1; }
-  100% { transform: translateY(0); }
-}
-
-/* Buttons */
-.btn {
-  padding: 0.6rem 1rem;
-  margin: 0.5rem;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  background: linear-gradient(90deg, #7f00ff, #00bfff);
-  color: #fff;
-  text-align: center;
-  display: inline-block;
-  font-size: 1rem;
-  box-shadow: 0 0 5px #7f00ff, 0 0 5px #00bfff;
-  position: relative;
-}
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #7f00ff, 0 0 15px #00bfff;
-  animation: bounce 0.3s;
-}
-@keyframes bounce {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-}
-
-/* Modal */
-.modal {
-  display: none;
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-.modal-content {
-  background: #1a1a2e;
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 450px;
-  width: 90%;
-  box-shadow:0 0 20px #7f00ff;
-  animation: slideIn 0.3s ease-out;
-}
-@keyframes slideIn {
-  0% { transform: translateY(-30px); opacity:0; }
-  100% { transform: translateY(0); opacity:1; }
-}
-.modal h2 {
-  margin-bottom: 1rem;
-  font-weight: bold;
-  color: #7f00ff;
-  text-align: center;
-}
-.close-btn {
-  background: red;
-  margin-top:1rem;
-  width:100%;
-}
-
-/* Pages */
-.dashboard, .admin-page {
-  display:none;
-  padding:2rem;
-  text-align:center;
-}
-input {
-  margin:0.5rem 0;
-  padding:0.5rem;
-  border-radius:8px;
-  border:none;
-  width:80%;
-  font-weight:bold;
-}
-
-/* Feature status */
-.feature-on { color: #00ff7f; font-weight:bold; }
-.feature-off { color: #ff5555; font-weight:bold; }
-
-/* Tooltips */
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 160px;
-  background-color: #222;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 10;
-  bottom: 125%; left: 50%; margin-left: -80px;
-  opacity: 0; transition: opacity 0.3s;
-}
-.tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eclipse Sentinel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #0f0f1a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .purple-blue {
+      background: linear-gradient(90deg, #7f00ff, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn {
+      padding: 0.6rem 1.2rem;
+      margin: 0.5rem;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      background: linear-gradient(90deg, #7f00ff, #00bfff);
+      color: #fff;
+      text-align: center;
+      display: inline-block;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #7f00ff, 0 0 10px #00bfff;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #1a1a2e;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 0 20px #7f00ff;
+      animation: fadeIn 0.3s ease-in-out;
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal h2 {
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #7f00ff;
+    }
+    .close-btn {
+      background: red;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .dashboard, .admin-page {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+    input {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      width: 80%;
+      font-weight: bold;
+      color: #fff;
+      background: #222244;
+    }
+  </style>
 </head>
 <body>
-
-<!-- BACKGROUND CANVAS -->
-<canvas id="bgCanvas"></canvas>
 
 <!-- LOGIN PAGE -->
 <div id="loginPage" class="flex flex-col items-center justify-center min-h-screen">
   <h1 class="text-4xl font-extrabold purple-blue mb-6">Eclipse Sentinel</h1>
-  <input type="password" id="password" placeholder="Enter Password" />
+  <input type="text" id="password" placeholder="Enter Password" value="MRTREYYISRAD"/>
   <div class="btn" onclick="login()">Login</div>
   <p id="loginError" style="color:red;margin-top:1rem;"></p>
 </div>
@@ -157,12 +96,12 @@ input {
 <!-- DASHBOARD -->
 <div id="dashboard" class="dashboard">
   <h1 class="text-3xl font-extrabold purple-blue mb-4">Eclipse Sentinel Dashboard</h1>
-  <div class="btn" onclick="openModal('status')">📊 Status</div>
-  <div class="btn" onclick="openModal('strongbugbots')">🧪 Strong Bug Bots</div>
-  <div class="btn" onclick="openModal('unbantool')">🛡 Unban Tool</div>
-  <div class="btn" onclick="openModal('reporttool')">🚨 Report Tool</div>
-  <div class="btn" onclick="openModal('free_numbers')">🆓 Free Numbers</div>
-  <div class="btn" onclick="openModal('contactcreator')">📩 Contact Creator</div>
+  <div class="btn" id="btn-status" onclick="openModal('status')">📊 Status</div>
+  <div class="btn" id="btn-strongbugbots" onclick="openModal('strongbugbots')">🧪 Strong Bug Bots</div>
+  <div class="btn" id="btn-unbantool" onclick="openModal('unbantool')">🛡 Unban Tool</div>
+  <div class="btn" id="btn-reporttool" onclick="openModal('reporttool')">🚨 Report Tool</div>
+  <div class="btn" id="btn-free_numbers" onclick="openModal('free_numbers')">🆓 Free Numbers</div>
+  <div class="btn" id="btn-contactcreator" onclick="openModal('contactcreator')">📩 Contact Creator</div>
   <div class="btn" onclick="showAdminPage()">👑 Admin Page</div>
 </div>
 
@@ -170,11 +109,11 @@ input {
 <div id="adminPage" class="admin-page">
   <h1 class="text-3xl font-extrabold purple-blue mb-4">Admin Page</h1>
   <p>Manage bot features and users here.</p>
-  <div class="btn" onclick="openModal('shutdown')">💻 Shutdown Web Features</div>
+  <div class="btn" onclick="showFeatureToggle()">⚡ Feature Toggle</div>
   <div class="btn" onclick="closeAdminPage()">⬅️ Back</div>
 </div>
 
-<!-- MODALS -->
+<!-- MODAL -->
 <div id="modal" class="modal flex">
   <div class="modal-content">
     <h2 id="modalTitle"></h2>
@@ -184,131 +123,189 @@ input {
 </div>
 
 <script>
-// Pages
-const loginPage=document.getElementById('loginPage');
-const dashboard=document.getElementById('dashboard');
-const adminPage=document.getElementById('adminPage');
-const loginError=document.getElementById('loginError');
-const modal=document.getElementById('modal');
-const modalTitle=document.getElementById('modalTitle');
-const modalBody=document.getElementById('modalBody');
+const loginPage = document.getElementById('loginPage');
+const dashboard = document.getElementById('dashboard');
+const adminPage = document.getElementById('adminPage');
+const loginError = document.getElementById('loginError');
+const modal = document.getElementById('modal');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
 
-const PASSWORD='MRTREYYISRAD';
-const ADMIN_PASSWORD='Beyonderismrtreyy';
-let featureStatus={status:true,strongbugbots:true,unbantool:true,reporttool:true,free_numbers:true,contactcreator:true};
-let startTime=Date.now();
-let statusInterval;
+const PASSWORD = 'MRTREYYISRAD';
+const ADMIN_PASSWORD = 'Beyonderismrtreyy';
+const CREATOR_USERNAME = '@Mrtreyy2';
 
-// LOGIN
-function login(){
-  const p=document.getElementById('password').value;
-  if(p===PASSWORD){ loginPage.style.display='none'; dashboard.style.display='block'; }
-  else if(p===ADMIN_PASSWORD){ loginPage.style.display='none'; adminPage.style.display='block'; }
-  else{ loginError.textContent='Incorrect password'; }
+// Feature toggle state
+const features = {
+  status: true,
+  strongbugbots: true,
+  webbugs: true,
+  bugsc: true,
+  dualcrasherbot: true,
+  deviantv19: true,
+  deviantv20: true,
+  deviantv22: true,
+  unbantool: true,
+  reporttool: true,
+  scamreport: true,
+  cpnreport: true,
+  illegalactivities: true,
+  free_numbers: true,
+  contactcreator: true
+};
+
+// LOGIN FUNCTION
+function login() {
+  const p = document.getElementById('password').value;
+  if (p === PASSWORD) {
+    loginPage.style.display = 'none';
+    dashboard.style.display = 'block';
+  } else if (p === ADMIN_PASSWORD) {
+    loginPage.style.display = 'none';
+    adminPage.style.display = 'block';
+  } else {
+    loginError.textContent = 'Wrong password';
+  }
 }
 
 // OPEN MODAL
-function openModal(section){
-  if(!featureStatus[section]&&section!=='shutdown'){ modalTitle.innerHTML='⚠️ Feature Disabled'; modalBody.innerHTML=`<p>This feature is currently disabled by Admin.</p>`; modal.style.display='flex'; return; }
-  let title='', body='';
-  switch(section){
-    case'status':
-      title='📊 Status';
-      if(statusInterval) clearInterval(statusInterval);
-      function updateUptime(){
-        const now=Date.now();
-        const diff=now-startTime;
-        const s=Math.floor(diff/1000);
-        const d=Math.floor(s/86400);
-        const h=Math.floor((s%86400)/3600);
-        const m=Math.floor((s%3600)/60);
-        const sec=s%60;
-        modalBody.innerHTML=`<p>Health: 🟢 ONLINE</p>
-        <p>Speed: 120 ms</p>
-        <p>Global Uptime: ${d}d ${h}h ${m}m ${sec}s</p>`;
-      }
-      updateUptime();
-      statusInterval=setInterval(updateUptime,1000);
+function openModal(section) {
+  if(!features[section]) { alert('This feature is currently turned off by admin'); return; }
+
+  let title = '', body = '';
+  switch(section) {
+    case 'status':
+      title = '📊 Status';
+      body = `<p>Uptime: 0d 0h 0m</p>`;
       break;
-    case'strongbugbots':
-      title='🧪 Strong Bug Bots';
-      body=`<div class="btn tooltip" onclick="openModal('webbugs')">Web Bugs<span class="tooltiptext">Premium</span></div>
-            <div class="btn tooltip" onclick="openModal('bugsc')">Bug SC<span class="tooltiptext">Premium</span></div>
-            <div class="btn" onclick="backToMain()">⬅️ Back to Main Menu</div>`;
+    case 'strongbugbots':
+      title = '🧪 Strong Bug Bots';
+      body = '';
+      if(features.webbugs) body += `<div class="btn" onclick="openModal('webbugs')">Web Bugs</div>`;
+      if(features.bugsc) body += `<div class="btn" onclick="openModal('bugsc')">Bug SC</div>`;
+      body += `<div class="btn" onclick="closeModal()">⬅️ Back to Main Menu</div>`;
       break;
-    case'webbugs':
-      title='Web Bugs';
-      body=`<div class="btn" onclick="showProduct('Dual Crasher Bot')">Dual Crasher Bot 🟢 Premium</div>
-            <div class="btn" onclick="backToStrongBugBots()">⬅️ Back</div>`;
+    case 'webbugs':
+      title = 'Web Bugs';
+      body = '';
+      if(features.dualcrasherbot) body += `<div class="btn" onclick="showProduct('Dual Crasher Bot')">Dual Crasher Bot 🟢</div>`;
+      body += `<div class="btn" onclick="openModal('strongbugbots')">⬅️ Back</div>`;
       break;
-    case'bugsc':
-      title='Bug SC';
-      body=`<div class="btn" onclick="showProduct('Dual Crasher Bot')">Dual Crasher Bot 🟢 Premium</div>
-            <div class="btn" onclick="showProduct('Deviant V19')">Deviant V19 🟢 Premium</div>
-            <div class="btn" onclick="showProduct('Deviant V20')">Deviant V20 🟢 Premium</div>
-            <div class="btn" onclick="showProduct('Deviant V22')">Deviant V22 🟢 Premium</div>
-            <div class="btn" onclick="backToStrongBugBots()">⬅️ Back</div>`;
+    case 'bugsc':
+      title = 'Bug SC';
+      body = '';
+      if(features.dualcrasherbot) body += `<div class="btn" onclick="showProduct('Dual Crasher Bot')">Dual Crasher Bot 🟢</div>`;
+      if(features.deviantv19) body += `<div class="btn" onclick="showProduct('Deviant V19')">Deviant V19 🟡</div>`;
+      if(features.deviantv20) body += `<div class="btn" onclick="showProduct('Deviant V20')">Deviant V20 🔴</div>`;
+      if(features.deviantv22) body += `<div class="btn" onclick="showProduct('Deviant V22')">Deviant V22 🟢</div>`;
+      body += `<div class="btn" onclick="openModal('strongbugbots')">⬅️ Back</div>`;
       break;
-    case'unbantool':
-      title='🛡 Unban Tool';
-      body=`<p>Feature not implemented yet.</p><div class="btn" onclick="backToMain()">⬅️ Back</div>`;
+    case 'unbantool':
+      title = '🛡 Unban Tool';
+      body = `<p>Feature not yet implemented.</p>
+              <div class="btn" onclick="closeModal()">⬅️ Back</div>`;
       break;
-    case'reporttool':
-      title='🚨 Report Tool';
-      body=`<div class="btn" onclick="showReport('Scam Report')">Scam Report</div>
-            <div class="btn" onclick="showReport('CPN Report')">CPN Report</div>
-            <div class="btn" onclick="showReport('Illegal Activities')">Illegal Activities</div>
-            <div class="btn" onclick="backToMain()">⬅️ Back</div>`;
+    case 'reporttool':
+      title = '🚨 Report Tool';
+      body = '';
+      if(features.scamreport) body += `<div class="btn" onclick="openModal('scamreport')">SCAM REPORT</div>`;
+      if(features.cpnreport) body += `<div class="btn" onclick="openModal('cpnreport')">CPN REPORT</div>`;
+      if(features.illegalactivities) body += `<div class="btn" onclick="openModal('illegalactivities')">ILLEGAL ACTIVITIES</div>`;
+      body += `<div class="btn" onclick="closeModal()">⬅️ Back</div>`;
       break;
-    case'free_numbers':
-      title='🆓 Free Numbers';
-      body=`<div class="btn" onclick="alert('Public Servers Free')">Public Servers (Free)</div>
-            <div class="btn" onclick="privateNumbers()">Private Servers (Premium)</div>
-            <div class="btn" onclick="backToMain()">⬅️ Back</div>`;
+    case 'scamreport':
+      title = 'SCAM REPORT';
+      body = `<p>DM ${CREATOR_USERNAME} for actions</p>
+              <a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Contact Creator</a>
+              <div class="btn" onclick="openModal('reporttool')">⬅️ Back</div>`;
       break;
-    case'contactcreator':
-      title='📩 Contact Creator';
-      body=`<a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Message Authorizer</a>
-            <div class="btn" onclick="backToMain()">⬅️ Back</div>`;
+    case 'cpnreport':
+      title = 'CPN REPORT';
+      body = `<p>DM ${CREATOR_USERNAME} for actions</p>
+              <a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Contact Creator</a>
+              <div class="btn" onclick="openModal('reporttool')">⬅️ Back</div>`;
       break;
-    case'shutdown':
-      title='💻 Shutdown Web Features';
-      body='';
-      for(const f in featureStatus){ body+=`<div class="btn" onclick="toggleFeature('${f}')">${f}: <span class="${featureStatus[f]?'feature-on':'feature-off'}">${featureStatus[f]?'ON':'OFF'}</span></div>`; }
-      body+=`<div class="btn" onclick="closeModal()">⬅️ Close</div>`;
+    case 'illegalactivities':
+      title = 'ILLEGAL ACTIVITIES';
+      body = `<p>DM ${CREATOR_USERNAME} for actions</p>
+              <a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Contact Creator</a>
+              <div class="btn" onclick="openModal('reporttool')">⬅️ Back</div>`;
+      break;
+    case 'free_numbers':
+      title = '🆓 Free Numbers';
+      body = '';
+      if(features.free_numbers) body += `<div class="btn" onclick="alert('Public servers (free)')">Public Servers (Free)</div>`;
+      body += `<div class="btn" onclick="promptPrivateNumbers()">Private Servers (Premium)</div>`;
+      body += `<div class="btn" onclick="closeModal()">⬅️ Back</div>`;
+      break;
+    case 'contactcreator':
+      title = '📩 Contact Creator';
+      body = `<p>Owner: ${CREATOR_USERNAME}</p>
+              <a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Message Owner</a>
+              <div class="btn" onclick="closeModal()">⬅️ Back</div>`;
       break;
   }
-  modalTitle.innerHTML=title;
-  modal.style.display='flex';
+  modalTitle.innerHTML = title;
+  modalBody.innerHTML = body;
+  modal.style.display = 'flex';
 }
 
 // CLOSE MODAL
-function closeModal(){ modal.style.display='none'; if(statusInterval) clearInterval(statusInterval); }
-function showProduct(name){ modalTitle=name; modalBody=`<p>Status: 🟢 Active</p>
-<a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Contact Authorizer</a>
-<div class="btn" onclick="backToStrongBugBots()">⬅️ Back</div>`; modal.style.display='flex'; }
-function showReport(name){ modalTitle=name; modalBody=`<p>Report Selected: ${name}</p>
-<div class="btn" onclick="backToMain()">⬅️ Back</div>`; modal.style.display='flex'; }
-function privateNumbers(){ const pwd=prompt('Enter Premium Password'); if(pwd===PASSWORD){ modalTitle='Private Servers'; modalBody=`<div class="btn" onclick="window.open('https://t.me/IMSPanel_BOT','_blank')">IMS TELEGRAM</div>
-<div class="btn" onclick="window.open('https://t.me/Mrtreyy2','_blank')">CMA - DM Creator</div>
-<div class="btn" onclick="window.open('https://t.me/Mrtreyy2','_blank')">NN MTD - DM Creator</div>
-<div class="btn" onclick="backToMain()">⬅️ Back</div>`; modal.style.display='flex'; } else{ alert('Incorrect Premium Password'); } }
-function backToMain(){ closeModal(); }
-function backToStrongBugBots(){ openModal('strongbugbots'); }
-function showAdminPage(){ const p=prompt('Enter Admin Password:'); if(p===ADMIN_PASSWORD){ dashboard.style.display='none'; adminPage.style.display='block'; } else alert('Wrong admin password'); }
-function closeAdminPage(){ adminPage.style.display='none'; dashboard.style.display='block'; }
-function toggleFeature(feature){ const val=confirm(`Turn ${feature} ${featureStatus[feature]?'OFF':'ON'}?`); if(val){ featureStatus[feature]=!featureStatus[feature]; alert(`${feature} now ${featureStatus[feature]?'ENABLED':'DISABLED'}`); } }
+function closeModal() { modal.style.display = 'none'; }
 
-// BACKGROUND PARTICLES
-const canvas=document.getElementById('bgCanvas');
-const ctx=canvas.getContext('2d');
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let particles=[];
-for(let i=0;i<120;i++){ particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*3+1, dx:(Math.random()-0.5)*0.5, dy:(Math.random()-0.5)*0.5}); }
-function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let p of particles){ ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle='rgba(127,0,255,0.6)'; ctx.fill(); p.x+=p.dx; p.y+=p.dy; if(p.x>canvas.width)p.x=0; if(p.x<0)p.x=canvas.width; if(p.y>canvas.height)p.y=0; if(p.y<0)p.y=canvas.height; } requestAnimationFrame(animate); }
-animate();
-window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
+// SHOW PRODUCT
+function showProduct(name) {
+  modalTitle.innerHTML = name;
+  modalBody.innerHTML = `
+    <p>Status: Active ✅</p>
+    <a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Contact Authorizer</a>
+    <div class="btn" onclick="openModal('strongbugbots')">⬅️ Back</div>
+  `;
+}
+
+// PRIVATE NUMBERS PASSWORD PROMPT
+function promptPrivateNumbers() {
+  const pw = prompt("Enter premium access password:");
+  if(pw === ADMIN_PASSWORD){
+    modalBody.innerHTML = `
+      <div class="btn" onclick="alert('IMS TELEGRAM selected')">IMS TELEGRAM</div>
+      <div class="btn" onclick="alert('CMA selected: DM Creator')">CMA</div>
+      <div class="btn" onclick="alert('NN MTD selected: DM Creator')">NN MTD</div>
+      <div class="btn" onclick="openModal('free_numbers')">⬅️ Back</div>
+    `;
+  } else { alert("Wrong password"); }
+}
+
+// ADMIN PAGE
+function showAdminPage() {
+  const p = prompt('Enter Admin Password:');
+  if(p === ADMIN_PASSWORD){
+    dashboard.style.display = 'none';
+    adminPage.style.display = 'block';
+  } else { alert('Wrong admin password'); }
+}
+
+function closeAdminPage() { adminPage.style.display = 'none'; dashboard.style.display = 'block'; }
+
+// FEATURE TOGGLE SYSTEM
+function showFeatureToggle() {
+  let body = '';
+  for(const key in features){
+    body += `<div class="btn" onclick="toggleFeature('${key}')">${key} : ${features[key] ? 'ON' : 'OFF'}</div>`;
+  }
+  body += `<div class="btn" onclick="closeAdminPage()">⬅️ Back</div>`;
+  modalTitle.innerHTML = '⚡ Feature Toggle';
+  modalBody.innerHTML = body;
+  modal.style.display = 'flex';
+}
+
+function toggleFeature(key){
+  const confirmToggle = confirm(`Do you want to turn ${features[key] ? 'OFF' : 'ON'} ${key}?`);
+  if(confirmToggle){
+    features[key] = !features[key];
+    showFeatureToggle();
+  }
+}
 </script>
 </body>
 </html>

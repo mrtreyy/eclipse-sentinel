@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eclipse Sentinel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #0f0f1a; /* dark background */
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .purple-blue {
+      background: linear-gradient(90deg, #7f00ff, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      background: linear-gradient(90deg, #7f00ff, #00bfff);
+      color: #fff;
+      text-align: center;
+      display: inline-block;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #7f00ff, 0 0 10px #00bfff;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: #1a1a2e;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 20px #7f00ff;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal h2 {
+      margin-bottom: 1rem;
+      font-weight: bold;
+      color: #7f00ff;
+      text-align: center;
+    }
+    .close-btn {
+      background: red;
+      margin-top: 1rem;
+      width: 100%;
+    }
+    .dashboard {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+    .admin-page {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+    input {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN PAGE -->
+  <div id="loginPage" class="flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-extrabold purple-blue mb-6">Eclipse Sentinel</h1>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <div class="btn" onclick="login()">Login</div>
+    <p id="loginError" style="color:red;margin-top:1rem;"></p>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard">
+    <h1 class="text-3xl font-extrabold purple-blue mb-4">Eclipse Sentinel Dashboard</h1>
+    <div class="btn" onclick="openModal('status')">📊 Status</div>
+    <div class="btn" onclick="openModal('functions')">⚙️ Functions</div>
+    <div class="btn" onclick="openModal('strongbugbots')">🧪 Strong Bug Bots</div>
+    <div class="btn" onclick="openModal('unbantool')">🛡 Unban Tool</div>
+    <div class="btn" onclick="openModal('reporttool')">🚨 Report Tool</div>
+    <div class="btn" onclick="openModal('free_numbers')">🆓 Free Numbers</div>
+    <div class="btn" onclick="openModal('contactcreator')">📩 Contact Creator</div>
+    <div class="btn" onclick="showAdminPage()">👑 Admin Page</div>
+  </div>
+
+  <!-- ADMIN PAGE -->
+  <div id="adminPage" class="admin-page">
+    <h1 class="text-3xl font-extrabold purple-blue mb-4">Admin Page</h1>
+    <p>Manage bot features and users here (test version).</p>
+    <div class="btn" onclick="closeAdminPage()">⬅️ Back</div>
+  </div>
+
+  <!-- MODALS -->
+  <div id="modal" class="modal flex">
+    <div class="modal-content">
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody"></div>
+      <div class="btn close-btn" onclick="closeModal()">Close</div>
+    </div>
+  </div>
+
+<script>
+  const loginPage = document.getElementById('loginPage');
+  const dashboard = document.getElementById('dashboard');
+  const adminPage = document.getElementById('adminPage');
+  const loginError = document.getElementById('loginError');
+  const modal = document.getElementById('modal');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+
+  const USER_CRED = { username: 'Beyonder', password: 'Beyonder password' };
+  const ADMIN_PASSWORD = 'Beyonderismrtreyy';
+
+  function login() {
+    const u = document.getElementById('username').value;
+    const p = document.getElementById('password').value;
+
+    if (u === USER_CRED.username && p === USER_CRED.password) {
+      loginPage.style.display = 'none';
+      dashboard.style.display = 'block';
+    } else if (p === ADMIN_PASSWORD) {
+      loginPage.style.display = 'none';
+      adminPage.style.display = 'block';
+    } else {
+      loginError.textContent = 'Invalid username or password';
+    }
+  }
+
+  function openModal(section) {
+    let title = '', body = '';
+    switch(section) {
+      case 'status':
+        title = '📊 Bot Status';
+        body = `
+          <p>Health: 🟢 ONLINE</p>
+          <p>Speed: 120 ms</p>
+          <p>Uptime: 1d 2h 15m</p>
+        `;
+        break;
+      case 'functions':
+        title = '⚙️ Bot Functions';
+        body = `
+          <ul>
+            <li>🛡 WhatsApp Assistance</li>
+            <li>🧪 Product Intelligence</li>
+            <li>📊 Monitoring</li>
+            <li>🔐 Access Control</li>
+          </ul>
+        `;
+        break;
+      case 'strongbugbots':
+        title = '🧪 Strong Bug Bots';
+        body = `
+          <ul>
+            <li>DualcrasherV1 🟢</li>
+            <li>Deviant V19 🟡</li>
+            <li>Deviant V20 🔴</li>
+            <li>Deviant V22 🟢</li>
+          </ul>
+        `;
+        break;
+      case 'unbantool':
+        title = '🛡 Unban Tool';
+        body = `<p>Feature not yet implemented.</p>`;
+        break;
+      case 'reporttool':
+        title = '🚨 Report Tool';
+        body = `<p>Automation not implemented.</p>`;
+        break;
+      case 'free_numbers':
+        title = '🆓 Free Numbers';
+        body = `
+          <p>🌍 Public Servers (Free)</p>
+          <p>🔐 Private Servers (Premium)</p>
+        `;
+        break;
+      case 'contactcreator':
+        title = '📩 Contact Creator';
+        body = `
+          <p>Owner: @Mrtreyy2</p>
+          <a class="btn" href="https://t.me/Mrtreyy2" target="_blank">Message Owner</a>
+        `;
+        break;
+    }
+    modalTitle.innerHTML = title;
+    modalBody.innerHTML = body;
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  function showAdminPage() {
+    const p = prompt('Enter Admin Password:');
+    if (p === ADMIN_PASSWORD) {
+      dashboard.style.display = 'none';
+      adminPage.style.display = 'block';
+    } else {
+      alert('Wrong admin password');
+    }
+  }
+
+  function closeAdminPage() {
+    adminPage.style.display = 'none';
+    dashboard.style.display = 'block';
+  }
+</script>
+
+</body>
+  </html>
